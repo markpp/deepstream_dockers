@@ -21,7 +21,7 @@
 
 # Example script to build Jetson triton docker on a Jetson device
 
-sudo image_url=deepstream-l4t:6.3.0-triton-local \
+sudo image_url=deepstream-l4t:6.3.0-devel-local \
      ds_pkg=deepstream_sdk_v6.3.0_jetson.tbz2 \
      ds_pkg_dir=deepstream_sdk_v6.3.0_jetson \
-     base_image=jetson-any-custom-base-image make -f Makefile triton -C jetson/
+     base_image=jetson-custom-base-image make -f Makefile_jetson_devel devel -C jetson/

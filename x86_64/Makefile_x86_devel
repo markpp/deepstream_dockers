@@ -19,9 +19,21 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-# Example script to build x86 docker (currently building a x86 triton docker).
+img_type = base devel
+prefix = deepstream_x86
+platform = x86_64
+ds_dir = /opt/nvidia/deepstream/deepstream-6.3
+platform_build_arg = --build-arg TENSORRT_VERSION="8.5.3-1+cuda11.8"
+platform_build_arg += --build-arg CUDNN_VERSION="8.8.1.3-1+cuda12.0"
+platform_build_arg += --build-arg CUDA_VERSION="12.1.0"
+platform_build_arg += --build-arg DS_DIR=$(ds_dir)
 
-     image_url=deepstream:6.3.0-devel-local \
-     ds_pkg=deepstream_sdk_v6.3.0_x86_64.tbz2 \
-     ds_pkg_dir=deepstream_sdk_v6.3.0_x86_64/ \
-     base_image=dgpu-custom-base-image make -f Makefile_x86_devel devel -C x86_64/
+DOCKER=docker
+devel : ubuntu_base_devel
+devel: base_image ?= $(registry)/$(prefix)-ubuntu_base_devel:$(image_tag)
+
+include ../common/Makefile
+
+ds_pkg="deepstream_sdk_v$(version)_x86_64.tbz2"
+ds_pkg_dir="deepstream_sdk_v$(version)_x86_64"
+platform_run_arg += -v $(top)/$(platform)/$(ds_pkg):/root/tmp/$(ds_pkg):ro

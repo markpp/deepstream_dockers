@@ -88,25 +88,25 @@ RUN apt-get update && \
 
 
 
-# RUN mkdir -p /opt/tritonclient/ && \
-#     mkdir -p /tmp/temp_triton99 && \
-#     mkdir -p /opt/proto && \
-#     mkdir -p /tmp/temp_proto99 && \
-#     mkdir -p /opt/half && \
-#     mkdir -p /tmp/half99 && \
-#     cd /tmp/temp_triton99 && \
-#     wget https://github.com/triton-inference-server/server/releases/download/v2.31.0/tritonserver2.31.0-jetpack5.1.tgz && \
-#     tar xzf tritonserver2.31.0-jetpack5.1.tgz -C /opt/tritonclient/ --strip-components=2 ./clients/lib/ ./clients/include && \
-#     cd /tmp/temp_proto99 && \
-#     wget https://github.com/protocolbuffers/protobuf/releases/download/v3.19.4/protoc-3.19.4-linux-aarch_64.zip && \
-#     /usr/bin/unzip /tmp/temp_proto99/protoc-3.19.4-linux-aarch_64.zip -d /opt/proto && \
-#     cd /tmp/half99 && \
-#     wget https://sourceforge.net/projects/half/files/half/2.1.0/half-2.1.0.zip && \
-#     /usr/bin/unzip /tmp/half99/half-2.1.0.zip -d /opt/half && \
-#     cd / && \
-#     rm -rf /tmp/temp_triton99 && \
-#     rm -rf /tmp/temp_proto99 && \
-#     rm -rf /tmp/half99
+RUN mkdir -p /opt/tritonclient/ && \
+    mkdir -p /tmp/temp_triton99 && \
+    mkdir -p /opt/proto && \
+    mkdir -p /tmp/temp_proto99 && \
+    mkdir -p /opt/half && \
+    mkdir -p /tmp/half99 && \
+    cd /tmp/temp_triton99 && \
+    wget https://github.com/triton-inference-server/server/releases/download/v2.31.0/tritonserver2.31.0-jetpack5.1.tgz && \
+    tar xzf tritonserver2.31.0-jetpack5.1.tgz -C /opt/tritonclient/ --strip-components=2 ./clients/lib/ ./clients/include && \
+    cd /tmp/temp_proto99 && \
+    wget https://github.com/protocolbuffers/protobuf/releases/download/v3.19.4/protoc-3.19.4-linux-aarch_64.zip && \
+    /usr/bin/unzip /tmp/temp_proto99/protoc-3.19.4-linux-aarch_64.zip -d /opt/proto && \
+    cd /tmp/half99 && \
+    wget https://sourceforge.net/projects/half/files/half/2.1.0/half-2.1.0.zip && \
+    /usr/bin/unzip /tmp/half99/half-2.1.0.zip -d /opt/half && \
+    cd / && \
+    rm -rf /tmp/temp_triton99 && \
+    rm -rf /tmp/temp_proto99 && \
+    rm -rf /tmp/half99
 
 
 #work-around for vpi tests

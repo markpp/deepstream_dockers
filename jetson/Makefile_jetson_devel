@@ -19,9 +19,31 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-# Example script to build x86 docker (currently building a x86 triton docker).
+img_type = base runtime devel
+prefix = deepstream_jetson
+L4T_VERSION=r8.5.2.2
+platform="jetson"
+qemu_bin="qemu-aarch64-static"
+qemu_bin_path="/usr/bin/$(qemu_bin)"
+build_machine=$(shell uname -m)
+ifeq ($(build_machine),x86_64)
+DOCKER=podman
+platform_run_arg += -v $(qemu_bin_path):$(qemu_bin_path)
+bin_misc = -v $(qemu_bin_path):$(qemu_bin_path)
+platform_build_arg += -v $(qemu_bin_path):$(qemu_bin_path)
+else
+DOCKER=docker
+endif
 
-     image_url=deepstream:6.3.0-devel-local \
-     ds_pkg=deepstream_sdk_v6.3.0_x86_64.tbz2 \
-     ds_pkg_dir=deepstream_sdk_v6.3.0_x86_64/ \
-     base_image=dgpu-custom-base-image make -f Makefile_x86_devel devel -C x86_64/
+base runtime : ubuntu_base_runtime
+base runtime : base_image?= $(registry)/$(prefix)-ubuntu_base_runtime:$(image_tag)
+
+devel : ubuntu_base_devel
+devel : base_image?= $(registry)/$(prefix)-ubuntu_base_devel:$(image_tag)
+
+include ../common/Makefile
+
+ds_pkg="deepstream_sdk_v$(version)_jetson.tbz2"
+ds_pkg_dir="deepstream_sdk_v$(version)_jetson"
+platform_run_arg += -v $(top)/$(platform)/$(ds_pkg):/root/tmp/$(ds_pkg):ro
+platform_build_arg += --build-arg L4T_VERSION=$(L4T_VERSION)

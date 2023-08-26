@@ -15,12 +15,12 @@ Please run the below script inside the docker images to install additional packa
 
 ## 2 Building x86 DS docker images
 
-## 2.1 x86 Docker Pre-requisites
+### 2.1 x86 Docker Pre-requisites
 
 Please refer to the Prerequisites section at DeepStream NGC page [NVIDIA NGC](https://ngc.nvidia.com/catalog/containers/nvidia:deepstream) to build and run deepstream containers.
 
 
-### 2.1.1 Prerequisites; Mandatory; (DeepStreamSDK package and terminology)
+#### 2.1.1 Prerequisites; Mandatory; (DeepStreamSDK package and terminology)
 
 1) Please download the [DeepStreamSDK release](https://developer.nvidia.com/deepstream-getting-started) x86 tarball and place it locally
 in the ``$ROOT/x86_64`` folder of this repository.
@@ -36,14 +36,14 @@ tarball extension respectively. Refer to [Section 2.1.3 x86 Build Command](#213-
 provided in the command above. This name is used in the triton build steps alone.
 Refer to [Section 2.1.3 x86 Build Command](#213-x86-Build-Command) for sample command.
 
-### 2.1.2 Prerequisites; some are Optional; (TensorRT and other third-party packages)
+#### 2.1.2 Prerequisites; some are Optional; (TensorRT and other third-party packages)
 
-#### 2.1.2.1  x86-Triton : Adding uff-converter-tf and graphsurgeon-tf packages 
+##### 2.1.2.1  x86-Triton : Adding uff-converter-tf and graphsurgeon-tf packages 
 
 Note: These packages (uff-converter-tf and graphsurgeon-tf) are now included by default.
 
 
-#### 2.1.2.2 For x86 samples docker the TensorRT 8.5.3.1 install is required for the Docker builds
+##### 2.1.2.2 For x86 samples docker the TensorRT 8.5.3.1 install is required for the Docker builds
 
 Download file link: [nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb](https://developer.nvidia.com/downloads/compute/machine-learning/tensorrt/secure/8.5.3/local_repos/nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb) from TensorRT download page.
 Note: You may have to login to [developer.nvidia.com](https://developer.nvidia.com/) to download the file.  
@@ -53,7 +53,7 @@ $ROOT is the root directory of this git repo.
 
 ``cp nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb x86_64/ ``
 
-#### 2.1.2.3 Important Notes on docker image size optimization
+##### 2.1.2.3 Important Notes on docker image size optimization
 
 :warning: NOTE: Docker ADD image size workaround by using wget instead :warning:
 
@@ -70,7 +70,7 @@ The commented out this code section in the dockerfile that starts with this.
 ``# Add TensorRT repo``
 
 
-### 2.1.3 x86 Build Command
+#### 2.1.3 x86 Build Command
 
 ```
 sudo image_url=deepstream:6.3.0-triton-local \
@@ -79,9 +79,9 @@ sudo image_url=deepstream:6.3.0-triton-local \
      base_image=dgpu-any-custom-base-image make -f Makefile_x86_triton triton-devel -C x86_64/
 ```
 
-## 2.2 Building specific x86 docker types
+### 2.2 Building specific x86 docker types
 
-### 2.2.1 Instructions for Building x86 DS Triton docker image
+#### 2.2.1 Instructions for Building x86 DS Triton docker image
 
 ```
 sudo image_url=deepstream:6.3.0-triton-local \
@@ -91,7 +91,7 @@ sudo image_url=deepstream:6.3.0-triton-local \
 
 There is an example build script is called $ROOT/buildx86.sh with the same contents.
 ```  
-### 2.2.2 Instructions for Building x86 DS samples docker image
+#### 2.2.2 Instructions for Building x86 DS samples docker image
 
 ```
 sudo image_url=deepstream:6.3.0-samples-local \
@@ -102,7 +102,6 @@ sudo image_url=deepstream:6.3.0-samples-local \
 
 
 ## 3 Building Jetson DS docker images
-
 
 ### 3.1 Pre-requisites
 
@@ -115,14 +114,18 @@ in the ``$ROOT/jetson`` folder of this repository.
 
 ``cp deepstream_sdk_v6.3.0_jetson.tbz2 jetson/ ``
 
-## 3.1.1 Jetson needs VPI 2.3.9 pre-requisites.
+#### 3.1.1 Jetson needs VPI 2.3.9 pre-requisites.
 
 The following VPI 2.3.9 *.deb (vpi-dev-2.3.9-aarch64-l4t.deb, vpi-lib-2.3.9-aarch64-l4t.deb) files are required from [JetPack 5.1.2](https://developer.nvidia.com/embedded/jetpack). These need to be copied into the Jetson folder so they can be used by the build.
 
 ``cp vpi-dev-2.3.9-aarch64-l4t.deb jetson/ ``  
 ``cp vpi-lib-2.3.9-aarch64-l4t.deb jetson/ ``
 
-## 3.1.2 Jetson build command
+try:
+apt-get download libnvvpi2
+apt-get download vpi2-dev
+
+#### 3.1.2 Jetson build command
 
 ```
 sudo image_url=deepstream-l4t:6.3.0-triton-local \
@@ -133,10 +136,9 @@ sudo image_url=deepstream-l4t:6.3.0-triton-local \
      There is an example build script is called $ROOT/buildjet.sh with the same contents. 
 ```
 
+### 3.2 Building specific Jetson docker types
 
-## 3.2 Building specific Jetson docker types
-
-### 3.2.1 Instructions for building Jetson DS triton docker image
+#### 3.2.1 Instructions for building Jetson DS triton docker image
 
 ```
 sudo image_url=deepstream-l4t:6.3.0-triton-local \
@@ -144,7 +146,7 @@ sudo image_url=deepstream-l4t:6.3.0-triton-local \
      ds_pkg_dir=deepstream_sdk_v6.3.0_jetson \
      base_image=jetson-any-custom-base-image make -f Makefile triton -C jetson/
 ```
-### 3.2.2 Instructions for building Jetson DS samples docker image
+#### 3.2.2 Instructions for building Jetson DS samples docker image
 
 ```
 sudo image_url=deepstream-l4t:6.3.0-samples-local \

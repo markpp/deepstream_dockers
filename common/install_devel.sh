@@ -23,6 +23,9 @@
 
 utils_install_librdkafka_from_source()
 {
+    echo "Installing Dependencies: "
+    apt-get install -y libssl-dev
+
     # @{ librdkafka from source; Bug 200630652
     cd "/root/tmp"
     git clone https://github.com/edenhill/librdkafka.git
@@ -92,6 +95,6 @@ utils_install_libhiredis_from_source
 utils_install_libmosquitto_from_source
 
 # License and IP
-mv /opt/user_additional_install_devel.sh /opt/nvidia/deepstream/deepstream/user_additional_install.sh
-mv /opt/user_deepstream_python_apps_install.sh /opt/nvidia/deepstream/deepstream/user_deepstream_python_apps_install.sh
-cp /root/tmp/NvidiaDeepStreamDevelopmentLicense.pdf /opt/nvidia/deepstream/deepstream/
+#mv /opt/user_additional_install_devel.sh /opt/nvidia/deepstream/deepstream/user_additional_install.sh
+#mv /opt/user_deepstream_python_apps_install.sh /opt/nvidia/deepstream/deepstream/user_deepstream_python_apps_install.sh
+cp /root/tmp/LicenseAgreementContainer.pdf /opt/nvidia/deepstream/deepstream/

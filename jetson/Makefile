@@ -19,8 +19,6 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-
-
 img_type = base test5 runtime triton
 prefix = deepstream_jetson
 L4T_VERSION=r8.5.2.2
@@ -40,8 +38,8 @@ endif
 base test5 runtime : ubuntu_base_runtime
 base test5 runtime : base_image?= $(registry)/$(prefix)-ubuntu_base_runtime:$(image_tag)
 
-triton : ubuntu_base_devel
-triton : base_image?= $(registry)/$(prefix)-ubuntu_base_devel:$(image_tag)
+triton : trtserver_base_devel
+triton : base_image?= $(registry)/$(prefix)-trtserver_base_devel:$(image_tag)
 
 include ../common/Makefile
 
