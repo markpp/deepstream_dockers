@@ -55,6 +55,7 @@ RUN apt-get update && \
 
 RUN apt-get update && \
 	DEBIAN_FRONTEND=noninteractive 	apt-get install -y --no-install-recommends \
+	gstreamer1.0-libav \
 	gstreamer1.0-tools \
 	gstreamer1.0-plugins-good \
 	gstreamer1.0-plugins-bad \
@@ -87,6 +88,8 @@ RUN apt-get update && \
 # Add TensorRT repo
 # NOTE THis should already be downloaded into x86_64 directory
 ADD  nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb /tmp
+# use wget to download the file and save space (use local fileserver)
+#RUN wget http://127.0.0.1:8002/nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb /tmp
 
 # Add TRT repo
  RUN mkdir -p /tmp/temp_trt && \
@@ -184,18 +187,18 @@ RUN rm /root/gRPC_installation.sh && \
 RUN ldconfig
 
 # IP requirement for removal
-RUN rm -f /usr/lib/x86_64-linux-gnu/gstreamer-1.0/libgstaudioparsers.so
-RUN rm -f /usr/lib/x86_64-linux-gnu/gstreamer-1.0/libgstfaad.so
-RUN rm -f /usr/lib/x86_64-linux-gnu/gstreamer-1.0/libgstvoaacenc.so \
-    /usr/lib/x86_64-linux-gnu/gstreamer-1.0/libgstx264.so
-RUN rm -f /usr/lib/x86_64-linux-gnu/libavresample* /usr/lib/x86_64-linux-gnu/libavutil* \
-     /usr/lib/x86_64-linux-gnu/libavcodec* /usr/lib/x86_64-linux-gnu/libavformat* \
-     /usr/lib/x86_64-linux-gnu/libavfilter* /usr/lib/x86_64-linux-gnu/gstreamer-1.0/libgstde265.so* \
-    /usr/lib/x86_64-linux-gnu/gstreamer-1.0/libgstx265.so* /usr/lib/x86_64-linux-gnu/libde265.so*
-RUN rm -f /usr/lib/x86_64-linux-gnu/gstreamer-1.0/libgstvpx.so* \
-    /usr/lib/x86_64-linux-gnu/libmpeg2.so.0* /usr/lib/x86_64-linux-gnu/libmpeg2encpp-2.1.so* /usr/lib/x86_64-linux-gnu/libmpg123.so* \
-    /usr/lib/x86_64-linux-gnu/libx265.so.179 /usr/lib/x86_64-linux-gnu/libx264.so.155 /usr/lib/x86_64-linux-gnu/libvpx.so*   \
-    /usr/lib/x86_64-linux-gnu/libmpeg2convert.so*
+#RUN rm -f /usr/lib/x86_64-linux-gnu/gstreamer-1.0/libgstaudioparsers.so
+#RUN rm -f /usr/lib/x86_64-linux-gnu/gstreamer-1.0/libgstfaad.so
+#RUN rm -f /usr/lib/x86_64-linux-gnu/gstreamer-1.0/libgstvoaacenc.so \
+#    /usr/lib/x86_64-linux-gnu/gstreamer-1.0/libgstx264.so
+#RUN rm -f /usr/lib/x86_64-linux-gnu/libavresample* /usr/lib/x86_64-linux-gnu/libavutil* \
+#     /usr/lib/x86_64-linux-gnu/libavcodec* /usr/lib/x86_64-linux-gnu/libavformat* \
+#     /usr/lib/x86_64-linux-gnu/libavfilter* /usr/lib/x86_64-linux-gnu/gstreamer-1.0/libgstde265.so* \
+#    /usr/lib/x86_64-linux-gnu/gstreamer-1.0/libgstx265.so* /usr/lib/x86_64-linux-gnu/libde265.so*
+#RUN rm -f /usr/lib/x86_64-linux-gnu/gstreamer-1.0/libgstvpx.so* \
+#    /usr/lib/x86_64-linux-gnu/libmpeg2.so.0* /usr/lib/x86_64-linux-gnu/libmpeg2encpp-2.1.so* /usr/lib/x86_64-linux-gnu/libmpg123.so* \
+#    /usr/lib/x86_64-linux-gnu/libx265.so.179 /usr/lib/x86_64-linux-gnu/libx264.so.155 /usr/lib/x86_64-linux-gnu/libvpx.so*   \
+#    /usr/lib/x86_64-linux-gnu/libmpeg2convert.so*
 
 
 

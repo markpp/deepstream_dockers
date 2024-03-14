@@ -85,8 +85,10 @@ RUN apt-get update && \
 
 
 # Add TensorRT repo
-# NOTE THis should already be downloaded into x86_64 directory
+# NOTE This should already be downloaded into x86_64 directory
 ADD  nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb /tmp
+# use wget to download the file and save space (use local fileserver)
+#RUN wget http://localhost:8000/nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb -P /tmp
 
 # Add TRT repo
 RUN mkdir -p /tmp/temp_trt && \
