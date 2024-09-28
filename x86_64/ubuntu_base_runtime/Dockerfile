@@ -87,14 +87,45 @@ RUN apt-get update && \
 
 # Add TensorRT repo
 # NOTE THis should already be downloaded into x86_64 directory
-ADD  nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb /tmp
+# ADD  nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb /tmp
+
+# # Add TRT repo
+#  RUN mkdir -p /tmp/temp_trt && \
+#        cd /tmp/temp_trt && \
+#        mv /tmp/nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb  /tmp/temp_trt/ && \
+#        ls -l /tmp/temp_trt/ && \
+#        dpkg -i /tmp/temp_trt/nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb && \
+#        cp /var/nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8/nv-tensorrt-local-3EFA7C6A-keyring.gpg /usr/share/keyrings/ && \
+#        apt-get update && \
+#        DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+#        libnvinfer8=8.5.3-1+cuda11.8 \
+#        libnvinfer-plugin8=8.5.3-1+cuda11.8 \
+#        libnvparsers8=8.5.3-1+cuda11.8 \
+#        libnvonnxparsers8=8.5.3-1+cuda11.8 \
+#        libnvinfer-bin=8.5.3-1+cuda11.8 \
+#        libnvinfer-dev=8.5.3-1+cuda11.8 \
+#        libnvinfer-plugin-dev=8.5.3-1+cuda11.8 \
+#        libnvparsers-dev=8.5.3-1+cuda11.8 \
+#        libnvonnxparsers-dev=8.5.3-1+cuda11.8 \
+#        libnvinfer-samples=8.5.3-1+cuda11.8 \
+#        python3-libnvinfer=8.5.3-1+cuda11.8 \
+#        python3-libnvinfer-dev=8.5.3-1+cuda11.8 \
+#        uff-converter-tf=8.5.3-1+cuda11.8 \
+#        graphsurgeon-tf=8.5.3-1+cuda11.8 \
+#        libcudnn8=8.8.1.3-1+cuda12.0 \
+#        libcudnn8-dev=8.8.1.3-1+cuda12.0 && \
+#        cd /tmp && \
+#        dpkg --purge nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8 1.0-1 && \
+#        rm -rf temp_trt && \
+#        rm -rf /var/lib/apt/lists/*
+
+# install TensorRT repo from a hosted file on a server
 # use wget to download the file and save space (use local fileserver)
-#RUN wget http://127.0.0.1:8002/nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb /tmp
 
 # Add TRT repo
- RUN mkdir -p /tmp/temp_trt && \
+RUN mkdir -p /tmp/temp_trt && \
        cd /tmp/temp_trt && \
-       mv /tmp/nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb  /tmp/temp_trt/ && \
+       wget http://192.168.5.164:8000/nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb && \
        ls -l /tmp/temp_trt/ && \
        dpkg -i /tmp/temp_trt/nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb && \
        cp /var/nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8/nv-tensorrt-local-3EFA7C6A-keyring.gpg /usr/share/keyrings/ && \
@@ -120,42 +151,6 @@ ADD  nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb /tmp
        dpkg --purge nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8 1.0-1 && \
        rm -rf temp_trt && \
        rm -rf /var/lib/apt/lists/*
-
-
-
-# install TensorRT repo from a hosted file on a server
-
-# Add TRT repo
-# RUN mkdir -p /tmp/temp_trt && \
-#       cd /tmp/temp_trt && \
-#       wget https://<externally hosted> && \
-#       ls -l /tmp/temp_trt/ && \
-#       dpkg -i /tmp/temp_trt/nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8_1.0-1_amd64.deb && \
-#       cp /var/nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8/nv-tensorrt-local-3EFA7C6A-keyring.gpg /usr/share/keyrings/ && \
-#       apt-get update && \
-#       DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-#       libnvinfer8=8.5.3-1+cuda11.8 \
-#       libnvinfer-plugin8=8.5.3-1+cuda11.8 \
-#       libnvparsers8=8.5.3-1+cuda11.8 \
-#       libnvonnxparsers8=8.5.3-1+cuda11.8 \
-#       libnvinfer-bin=8.5.3-1+cuda11.8 \
-#       libnvinfer-dev=8.5.3-1+cuda11.8 \
-#       libnvinfer-plugin-dev=8.5.3-1+cuda11.8 \
-#       libnvparsers-dev=8.5.3-1+cuda11.8 \
-#       libnvonnxparsers-dev=8.5.3-1+cuda11.8 \
-#       libnvinfer-samples=8.5.3-1+cuda11.8 \
-#       python3-libnvinfer=8.5.3-1+cuda11.8 \
-#       python3-libnvinfer-dev=8.5.3-1+cuda11.8 \
-#       uff-converter-tf=8.5.3-1+cuda11.8 \
-#       graphsurgeon-tf=8.5.3-1+cuda11.8 \
-#       libcudnn8=8.8.1.3-1+cuda12.0 \
-#       libcudnn8-dev=8.8.1.3-1+cuda12.0 && \
-#       cd /tmp && \
-#       dpkg --purge nv-tensorrt-local-repo-ubuntu2004-8.5.3-cuda-11.8 1.0-1 && \
-#       rm -rf temp_trt && \
-#       rm -rf /var/lib/apt/lists/*
-
-
 
 
 
@@ -199,6 +194,4 @@ RUN ldconfig
 #    /usr/lib/x86_64-linux-gnu/libmpeg2.so.0* /usr/lib/x86_64-linux-gnu/libmpeg2encpp-2.1.so* /usr/lib/x86_64-linux-gnu/libmpg123.so* \
 #    /usr/lib/x86_64-linux-gnu/libx265.so.179 /usr/lib/x86_64-linux-gnu/libx264.so.155 /usr/lib/x86_64-linux-gnu/libvpx.so*   \
 #    /usr/lib/x86_64-linux-gnu/libmpeg2convert.so*
-
-
 
