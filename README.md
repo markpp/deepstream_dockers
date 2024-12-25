@@ -121,9 +121,11 @@ The following VPI 2.3.9 *.deb (vpi-dev-2.3.9-aarch64-l4t.deb, vpi-lib-2.3.9-aarc
 ``cp vpi-dev-2.3.9-aarch64-l4t.deb jetson/ ``  
 ``cp vpi-lib-2.3.9-aarch64-l4t.deb jetson/ ``
 
-try:
-apt-get download libnvvpi2
-apt-get download vpi2-dev
+download:
+``apt-get download libnvvpi2 vpi2-dev ``
+``cp libnvvpi2_2.3.9_arm64.deb jetson/vpi-lib-2.3.9-aarch64-l4t.deb ``  
+``cp vpi2-dev_2.3.9_arm64.deb jetson/vpi-dev-2.3.9-aarch64-l4t.deb ``
+
 
 #### 3.1.2 Jetson build command
 
